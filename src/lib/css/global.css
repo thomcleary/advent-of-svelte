@@ -1,0 +1,46 @@
+:root {
+	--col: white;
+	--col-bg: rgb(26, 26, 26);
+	--col-bg2: rgb(36, 36, 36);
+	--col-bg3: rgb(46, 46, 46);
+	--col-heading: rgb(230, 230, 230);
+	--col-body: rgb(204, 204, 204);
+
+	--svelte: rgb(235, 80, 39);
+	--green: #7fbc8c;
+	--red: #ff6b6b;
+	--orange: #f56945;
+}
+
+/* TODO: light theme */
+/* @media only screen and (prefers-color-scheme: light) {
+	:root {
+		--col: black;
+		--col-bg: white;
+		--col-heading: rgb(33, 33, 33);
+		--col-body: rgb(69, 69, 69);
+	}
+} */
+
+@font-face {
+	font-family: 'IBM Plex Mono';
+	src: url('$lib/assets/fonts/IBMPlexMono-Regular.ttf');
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+
+	color: var(--col);
+	background-color: var(--col-bg);
+
+	font-family:
+		IBM Plex Mono,
+		'Times New Roman',
+		Times,
+		serif;
+}
