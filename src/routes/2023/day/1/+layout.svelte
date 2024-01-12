@@ -3,8 +3,6 @@
 	import { slide } from 'svelte/transition';
 
 	let showDescription = false;
-
-	$: console.log({ showDescription });
 </script>
 
 <header>
