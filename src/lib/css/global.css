@@ -1,24 +1,17 @@
 :root {
-	--col: white;
-	--col-bg: rgb(26, 26, 26);
-	--col-bg2: rgb(36, 36, 36);
-	--col-bg3: rgb(46, 46, 46);
-	--col-heading: rgb(230, 230, 230);
-	--col-body: rgb(204, 204, 204);
-
-	--svelte: rgb(235, 80, 39);
-	--green: #7fbc8c;
-	--red: #ff6b6b;
-	--orange: #f56945;
+	--white: rgb(250, 250, 249);
+	--black: rgb(12, 10, 9);
+	--grey: rgb(161, 161, 170);
+	--orange: rgb(234, 88, 12);
+	--red: rgb(225, 29, 72);
+	--green: rgb(34, 197, 94);
+	--border: rgb(41, 37, 36);
+	--dim: rgb(41, 37, 36);
 }
 
 /* TODO: light theme */
 /* @media only screen and (prefers-color-scheme: light) {
 	:root {
-		--col: black;
-		--col-bg: white;
-		--col-heading: rgb(33, 33, 33);
-		--col-body: rgb(69, 69, 69);
 	}
 } */
 
@@ -35,8 +28,8 @@ body {
 	padding: 0;
 	margin: 0;
 
-	color: var(--col);
-	background-color: var(--col-bg);
+	color: var(--white);
+	background-color: var(--black);
 
 	font-family:
 		IBM Plex Mono,

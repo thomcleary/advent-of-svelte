@@ -29,7 +29,7 @@
 	<div class="inputs">
 		<div class="filters">
 			<span>Filters</span>
-			<label>Name<input type="text" bind:value={nameFilter} /></label>
+			<label>Name<input type="text" bind:value={nameFilter} placeholder="Anurag" /></label>
 		</div>
 
 		<div class="new-child">
@@ -66,6 +66,7 @@
 	label {
 		display: flex;
 		flex-direction: column;
+		gap: 2px;
 		flex: 1;
 
 		padding: 16px;
@@ -74,21 +75,23 @@
 		font-size: 16px;
 
 		color: var(--col-body);
-		background-color: var(--col-bg2);
+		background-color: var(--black);
 
-		border: 4px solid var(--col-body);
+		border: 1px solid var(--dim);
+	}
+
+	input::placeholder {
+		color: var(--border);
 	}
 
 	input[type='range'] {
 		-webkit-appearance: none;
 		appearance: none;
-		background: transparent;
 		cursor: pointer;
 		width: 100%;
 	}
 
 	input[type='range']::-webkit-slider-runnable-track {
-		background: var(--col-bg2);
 		height: 20px;
 	}
 
@@ -121,7 +124,7 @@
 
 		padding: 16px;
 
-		border: 4px solid var(--col-body);
+		border: 1px solid var(--border);
 	}
 
 	.new-child span,

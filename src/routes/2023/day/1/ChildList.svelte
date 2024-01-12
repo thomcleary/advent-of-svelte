@@ -72,16 +72,15 @@
 		list-style-type: none;
 
 		color: var(--naughty-or-nice);
-		background-color: var(--col-bg2);
 
 		padding: 16px;
 
-		/* border: 2px solid var(--col-body); */
+		border: 1px solid var(--border);
 	}
 
 	button {
-		color: var(--col-bg2);
-		background-color: var(--naughty-or-nice);
+		color: var(--naughty-or-nice);
+		background-color: var(--black);
 
 		padding: 8px;
 
@@ -89,6 +88,9 @@
 	}
 
 	button:hover {
+		color: var(--black);
+		background-color: var(--naughty-or-nice);
+
 		cursor: pointer;
 		touch-action: manipulation;
 	}
@@ -98,10 +100,7 @@
 		flex-direction: column;
 		flex: 1;
 
-		background-color: var(--col-bg);
-
-		border: 4px solid var(--naughty-or-nice);
-		box-shadow: -4px 5px var(--naughty-or-nice);
+		border: 1px solid var(--naughty-or-nice);
 	}
 
 	.tally-toggle {
@@ -128,7 +127,7 @@
 	}
 
 	.name {
-		color: var(--col-body);
+		color: var(--grey);
 	}
 
 	.delete {
