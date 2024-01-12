@@ -1,4 +1,5 @@
 <script>
+	import adventOfSvelteImg from '$lib/assets/images/advent-of-svelte.png';
 	import { slide } from 'svelte/transition';
 
 	let showDescription = false;
@@ -11,7 +12,7 @@
 		<nav>
 			<div class="breadcrumbs">
 				<a href="/">
-					<img src="/favicon.png" alt="Advent of Svelte" />
+					<img src={adventOfSvelteImg} alt="Advent of Svelte" />
 				</a>
 				<span>/</span>
 				<a href="../">2023</a>
@@ -63,6 +64,8 @@
 
 	img {
 		height: 1rem;
+
+		margin: 2px;
 	}
 
 	button {
