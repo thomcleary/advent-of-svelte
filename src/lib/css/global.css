@@ -6,7 +6,7 @@
 	--red: rgb(225, 29, 72);
 	--green: rgb(34, 197, 94);
 	--border: rgb(41, 37, 36);
-	--dim: rgb(41, 37, 36);
+	--muted: rgb(39 39 42 / 50%);
 }
 
 /* TODO: light theme */

@@ -56,42 +56,33 @@
 
 	img {
 		height: 1rem;
-
 		margin: 2px;
 	}
 
 	button {
 		color: var(--white);
 		background-color: transparent;
-
-		padding: 4px 8px;
-
+		padding: 0.25rem 0.5rem;
 		border: 1px solid var(--border);
-		border-radius: 4px;
+		border-radius: 0.25rem;
 	}
 
-	@media (hover: hover) {
-		button:hover {
-			color: var(--black);
-			background-color: var(--orange);
-
-			cursor: pointer;
-		}
+	button:hover {
+		color: var(--black);
+		background-color: var(--orange);
+		cursor: pointer;
 	}
 
 	p {
 		max-width: 75ch;
 		text-wrap: pretty;
-
 		color: var(--grey);
 	}
 
 	a {
 		display: flex;
 		align-items: center;
-
 		color: var(--orange);
-
 		text-decoration-thickness: 1px;
 		text-underline-offset: 2px;
 	}
@@ -99,17 +90,14 @@
 	a:hover {
 		color: var(--black);
 		background-color: var(--orange);
-
-		border-radius: 4px;
+		border-radius: 0.25rem;
 	}
 
 	.breadcrumbs {
 		display: flex;
 		align-items: center;
 		gap: 1ch;
-
 		color: var(--orange);
-
 		overflow-x: auto;
 	}
 
