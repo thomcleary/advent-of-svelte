@@ -7,6 +7,7 @@
 	$: console.log(newChild);
 
 	let newChildNameInput: HTMLInputElement | undefined = undefined;
+	let filterInput: HTMLInputElement | undefined = undefined;
 
 	let filter = '';
 	$: children = data.children.filter((c) =>
@@ -69,13 +70,21 @@
 				<thead>
 					<tr>
 						<td colspan="3" style="padding: 0.5rem;">
-							<input
-								type="text"
-								maxlength="64"
-								bind:value={filter}
-								placeholder="Filter children..."
-								style="width: 100%; background-color: var(--black); border: none; padding: 0.5rem; color: var(--grey);"
-							/>
+							<div style="display: flex; gap: 1rem;">
+								<input
+									type="text"
+									maxlength="64"
+									bind:value={filter}
+									bind:this={filterInput}
+									placeholder="Filter children..."
+									style="width: 100%; background-color: var(--black); border: none; padding: 0.5rem; color: var(--grey);"
+								/><button
+									on:click={() => {
+										filter = '';
+										filterInput?.focus();
+									}}>x</button
+								>
+							</div>
 						</td>
 					</tr>
 					<tr>
@@ -154,7 +163,7 @@
 
 	button {
 		color: var(--white);
-		background-color: transparent;
+		background-color: var(--black);
 		padding: 0.25rem 0.5rem;
 		font-size: 1.25rem;
 		border: 1px solid var(--border);
