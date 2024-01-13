@@ -14,9 +14,7 @@
 			<span>/</span>
 			<a href="../">2023</a>
 			<span>/</span>
-			day
-			<span>/</span>
-			1
+			<span>Day 1</span>
 		</div>
 		<button on:click={() => (showDescription = !showDescription)}>i</button>
 	</nav>
@@ -101,6 +99,8 @@
 	a:hover {
 		color: var(--black);
 		background-color: var(--orange);
+
+		border-radius: 4px;
 	}
 
 	.breadcrumbs {
@@ -115,5 +115,9 @@
 
 	.breadcrumbs > span {
 		color: var(--border);
+	}
+
+	.breadcrumbs span:last-child {
+		color: var(--white);
 	}
 </style>
