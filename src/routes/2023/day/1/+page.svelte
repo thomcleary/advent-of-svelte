@@ -23,6 +23,7 @@
 	/* 
 	TODO
 		- Style the filter input
+		- Add check boxes to filter naughty/nice
 		- Make name button sort table by name
 		- Make +/- buttons toggle tally
 		- Make tally button sort table by tally
@@ -69,6 +70,18 @@
 			<table>
 				<thead>
 					<tr>
+						<td colspan="3">
+							<label
+								>Naughty
+								<input type="checkbox" checked />
+							</label>
+							<label
+								>Nice
+								<input type="checkbox" checked />
+							</label>
+						</td>
+					</tr>
+					<tr>
 						<td colspan="3" style="padding: 0.5rem;">
 							<div style="display: flex; gap: 1rem;">
 								<input
@@ -101,9 +114,7 @@
 							<tr>
 								<td>{child.name}</td>
 								<td
-									style:color={`var(--${
-										child.tally === 0 ? 'orange' : child.tally < 0 ? 'red' : 'green'
-									})`}
+									style:color={`var(--${child.tally < 0 ? 'red' : 'green'})`}
 									style:text-align="center">{child.tally}</td
 								>
 								<td class="actions"
