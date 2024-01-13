@@ -44,8 +44,12 @@
 
 <style>
 	header {
-		padding: 1rem;
+		padding: 1rem 1.5rem;
 		border-bottom: 1px solid var(--border);
+	}
+
+	main {
+		flex: 1;
 	}
 
 	nav {
@@ -65,12 +69,12 @@
 		padding: 0.25rem 0.5rem;
 		border: 1px solid var(--border);
 		border-radius: 0.25rem;
+		font-size: 1.25rem;
 		touch-action: manipulation;
 	}
 
 	button:hover {
-		color: var(--black);
-		background-color: var(--orange);
+		border-color: var(--orange);
 		cursor: pointer;
 	}
 
@@ -113,5 +117,11 @@
 
 	.breadcrumbs span:last-child {
 		color: var(--white);
+	}
+
+	@media screen and (max-width: 600px) {
+		header {
+			padding: 0.5rem 1rem;
+		}
 	}
 </style>
