@@ -73,6 +73,11 @@
 		cursor: pointer;
 	}
 
+	button:focus {
+		outline: var(--orange) solid 1px;
+		border-color: transparent;
+	}
+
 	p {
 		max-width: 75ch;
 		text-wrap: pretty;

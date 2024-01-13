@@ -76,6 +76,11 @@
 		cursor: pointer;
 	}
 
+	button:focus {
+		outline: var(--orange) solid 1px;
+		border-color: transparent;
+	}
+
 	.container {
 		display: flex;
 		justify-content: center;
@@ -92,5 +97,9 @@
 	.actions {
 		display: flex;
 		gap: 1rem;
+	}
+
+	.actions > button {
+		font-size: 1.25rem;
 	}
 </style>
