@@ -65,6 +65,7 @@
 		padding: 0.25rem 0.5rem;
 		border: 1px solid var(--border);
 		border-radius: 0.25rem;
+		touch-action: manipulation;
 	}
 
 	button:hover {

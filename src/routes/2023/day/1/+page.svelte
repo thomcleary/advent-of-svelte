@@ -19,7 +19,9 @@
 					<tr>
 						<td>{child.name}</td>
 						<td
-							style:color={`var(--${child.tally < 0 ? 'red' : 'green'})`}
+							style:color={`var(--${
+								child.tally === 0 ? 'orange' : child.tally < 0 ? 'red' : 'green'
+							})`}
 							style:text-align="center">{child.tally}</td
 						>
 						<td class="actions"
@@ -51,7 +53,7 @@
 
 	th,
 	td {
-		padding: 0.5em 1em;
+		padding: 1em 2em;
 	}
 
 	tr {
@@ -68,6 +70,7 @@
 		padding: 0.25rem 0.5rem;
 		border: 1px solid var(--border);
 		border-radius: 0.25rem;
+		touch-action: manipulation;
 	}
 
 	button:hover {
@@ -96,10 +99,22 @@
 
 	.actions {
 		display: flex;
-		gap: 1rem;
+		gap: 2rem;
 	}
 
 	.actions > button {
 		font-size: 1.25rem;
+	}
+
+	@media screen and (max-width: 600px) {
+		th,
+		td {
+			padding: 0.5em 1em;
+		}
+
+		.actions {
+			display: flex;
+			gap: 1.5rem;
+		}
 	}
 </style>
