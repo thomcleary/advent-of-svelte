@@ -1,7 +1,16 @@
 <script lang="ts">
+	import { flip } from 'svelte/animate';
+	import type { PageData } from './$types.js';
+
 	export let data;
 
 	let children = data.children;
+
+	function deleteChild(child: PageData['children'][number]) {
+		if (!confirm(`Delete ${child.name}?`)) return;
+		const childIndex = children.indexOf(child);
+		children = [...children.slice(0, childIndex), ...children.slice(childIndex + 1)];
+	}
 </script>
 
 <div class="container">
@@ -16,7 +25,7 @@
 			</thead>
 			<tbody>
 				{#each children as child (child.id)}
-					<tr>
+					<tr animate:flip={{ duration: 250 }}>
 						<td>{child.name}</td>
 						<td
 							style:color={`var(--${
@@ -27,7 +36,7 @@
 						<td class="actions"
 							><button>+</button>
 							<button>-</button>
-							<button>x</button></td
+							<button on:click={() => deleteChild(child)}>x</button></td
 						>
 					</tr>
 				{/each}
