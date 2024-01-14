@@ -3,35 +3,42 @@
 
 	export let data;
 
+	let newChildNameInput: HTMLInputElement | undefined;
+	let filterInput: HTMLInputElement | undefined;
 	let newChild: Omit<PageData['children'][number], 'id'> = { name: '', tally: 0 };
-	$: console.log(newChild);
 
-	let newChildNameInput: HTMLInputElement | undefined = undefined;
-	let filterInput: HTMLInputElement | undefined = undefined;
+	let page = 1;
+	const pageSize = 10;
+	let leftPageButton: HTMLButtonElement | undefined;
+	let rightPageButton: HTMLButtonElement | undefined;
 
 	let filter = '';
-	$: children = data.children.filter((c) =>
+
+	$: filteredChildren = data.children.filter((c) =>
 		c.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
 	);
 
+	$: pagedChildren = filteredChildren.slice((page - 1) * pageSize, page * pageSize);
+
 	function deleteChild(child: PageData['children'][number]) {
 		if (!confirm(`Delete ${child.name}?`)) return;
-		const childIndex = children.indexOf(child);
-		children = [...children.slice(0, childIndex), ...children.slice(childIndex + 1)];
+		const childIndex = data.children.indexOf(child);
+		data.children = [...data.children.slice(0, childIndex), ...data.children.slice(childIndex + 1)];
+
+		if (page !== 1 && pagedChildren.length === 1) {
+			page--;
+		}
 	}
 
 	/* 
 	TODO
-		- Style the filter input
-		- Add check boxes to filter naughty/nice
+		- Cleanup what you've got first lol
+		- Add check boxes to toggle filtering naughty/nice children
 		- Make name button sort table by name
-		- Make +/- buttons toggle tally
 		- Make tally button sort table by tally
-		- Style the "add children" inputs
-		- Make the add children inputs add a new child
+		- Make +/- buttons toggle tally
+		- Add inputs to add new children to the list
 		- Separate stuff into components
-		- Cleanup CSS
-		- Done?...
 	*/
 </script>
 
@@ -68,6 +75,9 @@
 
 		<div class="data-table">
 			<table>
+				<col />
+				<col style="width: 8ch;" />
+				<col />
 				<thead>
 					<tr>
 						<td colspan="3">
@@ -89,14 +99,10 @@
 									maxlength="64"
 									bind:value={filter}
 									bind:this={filterInput}
+									on:input={() => (page = 1)}
 									placeholder="Filter children..."
-									style="width: 100%; background-color: var(--black); border: none; padding: 0.5rem; color: var(--grey);"
-								/><button
-									on:click={() => {
-										filter = '';
-										filterInput?.focus();
-									}}>x</button
-								>
+									style="width: 100%; background-color: var(--black); border: none; padding: 0.5rem; color: var(--grey); outline: none;"
+								/>
 							</div>
 						</td>
 					</tr>
@@ -107,10 +113,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#if children.length === 0}
+					{#if pagedChildren.length === 0}
 						<td>0 matches found</td>
 					{:else}
-						{#each children as child (child.id)}
+						{#each pagedChildren as child (child.id)}
 							<tr>
 								<td>{child.name}</td>
 								<td
@@ -128,6 +134,29 @@
 				</tbody>
 			</table>
 		</div>
+		<div class="pager" style="display: flex; alignItems: center; justifyContent: center;">
+			<button
+				disabled={page === 1}
+				class:disabled={page === 1}
+				on:click={() => {
+					page--;
+				}}
+				bind:this={leftPageButton}
+			>
+				{'<'}
+			</button>
+			<span style="vertical-align: middle;">{page}</span>
+			<button
+				disabled={page * pageSize >= filteredChildren.length}
+				class:disabled={page * pageSize >= filteredChildren.length}
+				bind:this={rightPageButton}
+				on:click={() => {
+					page++;
+				}}
+			>
+				{'>'}
+			</button>
+		</div>
 	</section>
 </div>
 
@@ -136,7 +165,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		min-width: min(100%, 600px);
+		max-width: min(100%, 600px);
 	}
 
 	input {
@@ -147,6 +176,7 @@
 		padding: 0.5rem 1rem;
 		border-collapse: collapse;
 		width: 100%;
+		table-layout: fixed;
 	}
 
 	th,
@@ -168,7 +198,7 @@
 		border-bottom: 1px solid var(--border);
 	}
 
-	tr:hover {
+	tbody > tr:hover {
 		background-color: var(--muted);
 	}
 
@@ -196,7 +226,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 32px;
+		padding: 2rem;
 	}
 
 	.data-table {
@@ -211,28 +241,40 @@
 		gap: 2rem;
 	}
 
+	.pager > * {
+		flex: 1;
+		text-align: center;
+		padding: 0;
+		padding: 0.5rem;
+	}
+
+	.disabled,
+	.disabled:hover,
+	.disabled:focus {
+		color: var(--border);
+		outline: none;
+		border-color: var(--border);
+		cursor: auto;
+	}
+
 	@media screen and (max-width: 600px) {
 		.actions {
 			gap: 1rem;
 		}
 
 		.container {
-			padding: 1rem;
+			padding: 2rem 1rem;
 		}
 	}
 
 	@media screen and (max-width: 400px) {
-		section {
-			gap: 0.5rem;
-		}
-
 		th,
 		td {
 			padding: 0.5em 0 0.5rem 0.5rem;
 		}
 
 		.container {
-			padding: 0.5rem;
+			padding: 1rem 0.5rem;
 		}
 	}
 </style>
