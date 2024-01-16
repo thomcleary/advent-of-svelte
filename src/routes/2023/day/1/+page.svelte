@@ -33,6 +33,7 @@
 	/* 
 	TODO
 		- Cleanup what you've got first lol
+		- Change font to match shadcn / type-hero
 		- Add check boxes to toggle filtering naughty/nice children
 		- Make name button sort table by name
 		- Make tally button sort table by tally
@@ -109,7 +110,7 @@
 					<tr>
 						<th style:text-align="left"><button>Name</button></th>
 						<th><button>Tally</button></th>
-						<th>Actions</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>

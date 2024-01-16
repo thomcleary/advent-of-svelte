@@ -2,7 +2,7 @@
 	"editor.formatOnSave": true,
 	"[svelte]": {
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": true
+			"source.organizeImports": "explicit"
 		}
 	}
 }
