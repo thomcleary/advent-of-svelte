@@ -17,7 +17,7 @@
 
 @font-face {
 	font-family: 'IBM Plex Mono';
-	src: url('$lib/assets/fonts/IBMPlexMono-Regular.ttf');
+	src: url('$lib/assets/fonts/Inter-Regular.ttf');
 }
 
 * {
@@ -31,17 +31,9 @@ body {
 	color: var(--white);
 	background-color: var(--black);
 
-	font-family:
-		IBM Plex Mono,
-		'Times New Roman',
-		Times,
-		serif;
+	font-family: 'Inter', sans-serif;
 }
 
 input {
-	font-family:
-		IBM Plex Mono,
-		'Times New Roman',
-		Times,
-		serif;
+	font-family: 'Inter', sans-serif;
 }
