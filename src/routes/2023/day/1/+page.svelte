@@ -33,11 +33,11 @@
 	/* 
 	TODO
 		- Cleanup what you've got first lol
+		- Add inputs to add new children to the list
 		- Add check boxes to toggle filtering naughty/nice children
+		- Make +/- buttons toggle tally
 		- Make name button sort table by name
 		- Make tally button sort table by tally
-		- Make +/- buttons toggle tally
-		- Add inputs to add new children to the list
 		- Separate stuff into components
 	*/
 </script>
@@ -49,13 +49,14 @@
 <div class="container">
 	<section>
 		<div style="display: flex; gap: 1rem;">
-			<div style="display: flex; flex-direction: column; flex: 1;">
+			<div style="display: flex; flex-direction: column; flex: 1; gap: 0.5rem;">
 				<input
 					type="text"
 					maxlength="64"
 					placeholder="New name..."
 					bind:value={newChild.name}
 					bind:this={newChildNameInput}
+					style="width: 100%; background-color: var(--black); border: 1px solid var(--border); border-radius: 0.25rem; padding: 0.5rem; color: var(--white); outline: none;"
 				/>
 				<div style="display: flex; text-align: right;">
 					<input style="flex: 1;" type="range" min="-100" max="100" bind:value={newChild.tally} />
