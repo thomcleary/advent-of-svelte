@@ -59,7 +59,7 @@
 	}
 
 	img {
-		height: 1rem;
+		height: 1.5rem;
 		margin: 2px;
 	}
 
