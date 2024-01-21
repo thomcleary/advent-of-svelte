@@ -1,7 +1,7 @@
 export type Child = { name: string; tally: number };
 
 // Backup of https://advent.sveltesociety.dev/data/2023/day-one.json
-export const backupChildren: Child[] = [
+export const dayOneBackup: Child[] = [
 	{
 		name: 'Hayley',
 		tally: 100

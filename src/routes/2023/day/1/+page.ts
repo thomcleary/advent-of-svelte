@@ -1,16 +1,17 @@
-import type { Child } from './children';
-
-const dayOneUrl = 'https://advent.sveltesociety.dev/data/2023/day-one.json';
+import { dayDataUrl } from '$lib/utils';
+import { type Child, dayOneBackup } from '$lib/data/backup/2023/dayOne.js';
 
 export const load = async ({ fetch }) => {
 	let children: Child[];
 
+	const url = dayDataUrl(1);
+
 	try {
-		const response = await fetch(dayOneUrl);
+		const response = await fetch(url);
 		children = (await response.json()) as Child[];
 	} catch {
-		console.warn(`Failed to fetch data from ${dayOneUrl}. Using backup data instead.`);
-		children = (await import('./children')).backupChildren;
+		console.warn(`Failed to fetch data from ${url}. Using backup data instead.`);
+		children = dayOneBackup;
 	}
 
 	return {
