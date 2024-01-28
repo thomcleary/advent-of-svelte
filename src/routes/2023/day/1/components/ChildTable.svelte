@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
+	import { fly } from 'svelte/transition';
 	import type { PageData } from '../$types';
 
 	export let children: PageData['children'];
@@ -54,107 +55,109 @@
 	}
 </script>
 
-<div class="data-table">
-	<table>
-		<col />
-		<col style="width: 8ch;" />
-		<col />
-		<thead>
-			<tr>
-				<td colspan="3">
-					<label
-						>Naughty
-						<input type="checkbox" checked />
-					</label>
-					<label
-						>Nice
-						<input type="checkbox" checked />
-					</label>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3" style="padding: 0.5rem;">
-					<div style="display: flex; gap: 1rem;">
-						<input
-							type="text"
-							maxlength="64"
-							bind:value={filter}
-							bind:this={filterInput}
-							on:input={() => (page = 1)}
-							placeholder="Filter children..."
-							style="width: 100%; background-color: var(--black); border: none; padding: 0.5rem; color: var(--grey); outline: none;"
-						/>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th style:text-align="left"
-					><button
-						style:border={sortBy === 'name' ? '1px solid var(--orange)' : ''}
-						on:click={() => updateSort('name')}>Name</button
-					></th
-				>
-				<th
-					><button
-						style:border={sortBy === 'tally' ? '1px solid var(--orange)' : ''}
-						on:click={() => updateSort('tally')}>Tally</button
-					></th
-				>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			{#if pagedChildren.length === 0}
-				<td>0 matches found</td>
-			{:else}
-				{#each pagedChildren as child (child.id)}
-					<tr animate:flip={{ duration: 250 }}>
-						<td>{child.name}</td>
-						<td
-							style:color={`var(--${child.tally < 0 ? 'red' : 'green'})`}
-							style:text-align="center">{child.tally}</td
-						>
-						<td class="actions"
-							><button
-								class:disabled={child.tally === 100}
-								disabled={child.tally === 100}
-								on:click={() => updateTally(child, 1)}>+</button
+<div class="container">
+	<div class="data-table">
+		<table>
+			<col />
+			<col style="width: 8ch;" />
+			<col />
+			<thead>
+				<tr>
+					<td colspan="3">
+						<label
+							>Naughty
+							<input type="checkbox" checked />
+						</label>
+						<label
+							>Nice
+							<input type="checkbox" checked />
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" style="padding: 0.5rem;">
+						<div style="display: flex; gap: 1rem;">
+							<input
+								type="text"
+								maxlength="64"
+								bind:value={filter}
+								bind:this={filterInput}
+								on:input={() => (page = 1)}
+								placeholder="Filter children..."
+								style="width: 100%; background-color: var(--black); border: none; padding: 0.5rem; color: var(--grey); outline: none;"
+							/>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th style:text-align="left"
+						><button
+							style:outline={sortBy === 'name' ? '1px solid var(--orange)' : ''}
+							on:click={() => updateSort('name')}>Name</button
+						></th
+					>
+					<th
+						><button
+							style:outline={sortBy === 'tally' ? '1px solid var(--orange)' : ''}
+							on:click={() => updateSort('tally')}>Tally</button
+						></th
+					>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{#if pagedChildren.length === 0}
+					<td>0 matches found</td>
+				{:else}
+					{#each pagedChildren as child (child.id)}
+						<tr animate:flip={{ duration: 250 }} in:fly={{ y: 24 }}>
+							<td>{child.name}</td>
+							<td
+								style:color={`var(--${child.tally < 0 ? 'red' : 'green'})`}
+								style:text-align="center">{child.tally}</td
 							>
-							<button
-								class:disabled={child.tally === -100}
-								disabled={child.tally === -100}
-								on:click={() => updateTally(child, -1)}>-</button
+							<td class="actions"
+								><button
+									class:disabled={child.tally === 100}
+									disabled={child.tally === 100}
+									on:click={() => updateTally(child, 1)}>+</button
+								>
+								<button
+									class:disabled={child.tally === -100}
+									disabled={child.tally === -100}
+									on:click={() => updateTally(child, -1)}>-</button
+								>
+								<button on:click={() => deleteChild(child)}>x</button></td
 							>
-							<button on:click={() => deleteChild(child)}>x</button></td
-						>
-					</tr>
-				{/each}
-			{/if}
-		</tbody>
-	</table>
-</div>
-<div class="pager" style="display: flex; alignItems: center; justifyContent: center;">
-	<button
-		disabled={page === 1}
-		class:disabled={page === 1}
-		on:click={() => {
-			page--;
-		}}
-		bind:this={leftPageButton}
-	>
-		{'<'}
-	</button>
-	<span style="vertical-align: middle;">{page}</span>
-	<button
-		disabled={page * pageSize >= filteredChildren.length}
-		class:disabled={page * pageSize >= filteredChildren.length}
-		bind:this={rightPageButton}
-		on:click={() => {
-			page++;
-		}}
-	>
-		{'>'}
-	</button>
+						</tr>
+					{/each}
+				{/if}
+			</tbody>
+		</table>
+	</div>
+	<div class="pager" style="display: flex; alignItems: center; justifyContent: center;">
+		<button
+			disabled={page === 1}
+			class:disabled={page === 1}
+			on:click={() => {
+				page--;
+			}}
+			bind:this={leftPageButton}
+		>
+			{'<'}
+		</button>
+		<span style="vertical-align: middle;">{page}</span>
+		<button
+			disabled={page * pageSize >= filteredChildren.length}
+			class:disabled={page * pageSize >= filteredChildren.length}
+			bind:this={rightPageButton}
+			on:click={() => {
+				page++;
+			}}
+		>
+			{'>'}
+		</button>
+	</div>
 </div>
 
 <style>
@@ -190,6 +193,12 @@
 
 	tbody > tr:hover {
 		background-color: var(--muted);
+	}
+
+	.container {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 	}
 
 	.data-table {

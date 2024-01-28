@@ -6,10 +6,7 @@
 
 	/* 
 	TODO
-		- Add inputs to add new children to the list
 		- Add check boxes to toggle filtering naughty/nice children
-		- Make table sort buttons not have thick border/outline on click
-		- Separate stuff into components
 	*/
 </script>
 
@@ -19,7 +16,10 @@
 
 <div class="container">
 	<section>
-		<ChildInput />
+		<ChildInput
+			onAddChild={(child) =>
+				(data.children = [...data.children, { ...child, id: data.children.length.toString() }])}
+		/>
 		<ChildTable bind:children={data.children} />
 	</section>
 </div>
@@ -28,7 +28,7 @@
 	section {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 2rem;
 		max-width: min(100%, 600px);
 	}
 
