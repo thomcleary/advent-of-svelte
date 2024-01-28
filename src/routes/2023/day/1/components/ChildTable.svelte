@@ -2,6 +2,7 @@
 	import { flip } from 'svelte/animate';
 	import { fly } from 'svelte/transition';
 	import type { PageData } from '../$types';
+	import FilterOption from './FilterOption.svelte';
 
 	export let children: PageData['children'];
 
@@ -19,6 +20,22 @@
 		}
 	})();
 
+	let naughty = true;
+	let nice = true;
+
+	$: naughtyOrNiceChildren = sortedChildren.filter((c) => {
+		switch (true) {
+			case naughty && nice:
+				return true;
+			case naughty:
+				return c.tally < 0;
+			case nice:
+				return c.tally >= 0;
+			default:
+				return false;
+		}
+	});
+
 	let filterInput: HTMLInputElement | undefined;
 	let leftPageButton: HTMLButtonElement | undefined;
 	let rightPageButton: HTMLButtonElement | undefined;
@@ -27,7 +44,7 @@
 	let page = 1;
 	const pageSize = 10;
 
-	$: filteredChildren = sortedChildren.filter((c) =>
+	$: filteredChildren = naughtyOrNiceChildren.filter((c) =>
 		c.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
 	);
 
@@ -63,15 +80,9 @@
 			<col />
 			<thead>
 				<tr>
-					<td colspan="3">
-						<label
-							>Naughty
-							<input type="checkbox" checked />
-						</label>
-						<label
-							>Nice
-							<input type="checkbox" checked />
-						</label>
+					<td colspan="3" style="display: flex; gap: 1rem;">
+						<FilterOption label="Naughty" bind:checked={naughty} />
+						<FilterOption label="Nice" bind:checked={nice} />
 					</td>
 				</tr>
 				<tr>

@@ -3,11 +3,6 @@
 	import ChildTable from './components/ChildTable.svelte';
 
 	export let data;
-
-	/* 
-	TODO
-		- Add check boxes to toggle filtering naughty/nice children
-	*/
 </script>
 
 <svelte:head>
