@@ -8,7 +8,6 @@
 	TODO
 		- Add inputs to add new children to the list
 		- Add check boxes to toggle filtering naughty/nice children
-		- Make +/- buttons toggle tally
 		- Make name button sort table by name
 		- Make tally button sort table by tally
 		- Separate stuff into components

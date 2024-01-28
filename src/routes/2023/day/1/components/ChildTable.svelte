@@ -79,8 +79,16 @@
 							style:text-align="center">{child.tally}</td
 						>
 						<td class="actions"
-							><button>+</button>
-							<button>-</button>
+							><button
+								class:disabled={child.tally === 100}
+								disabled={child.tally === 100}
+								on:click={() => (child.tally = Math.min(child.tally + 1, 100))}>+</button
+							>
+							<button
+								class:disabled={child.tally === -100}
+								disabled={child.tally === -100}
+								on:click={() => child.tally--}>-</button
+							>
 							<button on:click={() => deleteChild(child)}>x</button></td
 						>
 					</tr>
