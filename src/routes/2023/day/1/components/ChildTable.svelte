@@ -1,7 +1,22 @@
 <script lang="ts">
+	import { flip } from 'svelte/animate';
 	import type { PageData } from '../$types';
 
 	export let children: PageData['children'];
+
+	let sortBy: 'name' | 'tally' | undefined = undefined;
+	let sortUp = false;
+
+	$: sortedChildren = (() => {
+		switch (sortBy) {
+			case 'name':
+				return children.sort((a, b) => a.name.localeCompare(b.name) * (sortUp ? 1 : -1));
+			case 'tally':
+				return children.sort((a, b) => (b.tally - a.tally) * (sortUp ? 1 : -1));
+			default:
+				return children;
+		}
+	})();
 
 	let filterInput: HTMLInputElement | undefined;
 	let leftPageButton: HTMLButtonElement | undefined;
@@ -11,11 +26,22 @@
 	let page = 1;
 	const pageSize = 10;
 
-	$: filteredChildren = children.filter((c) =>
+	$: filteredChildren = sortedChildren.filter((c) =>
 		c.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
 	);
 
 	$: pagedChildren = filteredChildren.slice((page - 1) * pageSize, page * pageSize);
+
+	function updateSort(by: typeof sortBy) {
+		sortBy = by;
+		sortUp = !sortUp;
+		page = 1;
+	}
+
+	function updateTally(child: PageData['children'][number], by: -1 | 1) {
+		child.tally += by;
+		children = children;
+	}
 
 	function deleteChild(child: PageData['children'][number]) {
 		if (!confirm(`Delete ${child.name}?`)) return;
@@ -62,8 +88,18 @@
 				</td>
 			</tr>
 			<tr>
-				<th style:text-align="left"><button>Name</button></th>
-				<th><button>Tally</button></th>
+				<th style:text-align="left"
+					><button
+						style:border={sortBy === 'name' ? '1px solid var(--orange)' : ''}
+						on:click={() => updateSort('name')}>Name</button
+					></th
+				>
+				<th
+					><button
+						style:border={sortBy === 'tally' ? '1px solid var(--orange)' : ''}
+						on:click={() => updateSort('tally')}>Tally</button
+					></th
+				>
 				<th></th>
 			</tr>
 		</thead>
@@ -72,7 +108,7 @@
 				<td>0 matches found</td>
 			{:else}
 				{#each pagedChildren as child (child.id)}
-					<tr>
+					<tr animate:flip={{ duration: 250 }}>
 						<td>{child.name}</td>
 						<td
 							style:color={`var(--${child.tally < 0 ? 'red' : 'green'})`}
@@ -82,12 +118,12 @@
 							><button
 								class:disabled={child.tally === 100}
 								disabled={child.tally === 100}
-								on:click={() => (child.tally = Math.min(child.tally + 1, 100))}>+</button
+								on:click={() => updateTally(child, 1)}>+</button
 							>
 							<button
 								class:disabled={child.tally === -100}
 								disabled={child.tally === -100}
-								on:click={() => child.tally--}>-</button
+								on:click={() => updateTally(child, -1)}>-</button
 							>
 							<button on:click={() => deleteChild(child)}>x</button></td
 						>

@@ -8,8 +8,7 @@
 	TODO
 		- Add inputs to add new children to the list
 		- Add check boxes to toggle filtering naughty/nice children
-		- Make name button sort table by name
-		- Make tally button sort table by tally
+		- Make table sort buttons not have thick border/outline on click
 		- Separate stuff into components
 	*/
 </script>
