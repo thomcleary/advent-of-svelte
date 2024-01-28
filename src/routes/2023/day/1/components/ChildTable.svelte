@@ -83,7 +83,7 @@
 								bind:value={filter}
 								bind:this={filterInput}
 								on:input={() => (page = 1)}
-								placeholder="Filter children..."
+								placeholder="Filter..."
 								style="width: 100%; background-color: var(--black); border: none; padding: 0.5rem; color: var(--grey); outline: none;"
 							/>
 						</div>

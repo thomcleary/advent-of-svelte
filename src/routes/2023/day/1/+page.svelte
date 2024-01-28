@@ -20,6 +20,7 @@
 			onAddChild={(child) =>
 				(data.children = [...data.children, { ...child, id: data.children.length.toString() }])}
 		/>
+		<hr />
 		<ChildTable bind:children={data.children} />
 	</section>
 </div>
@@ -30,6 +31,12 @@
 		flex-direction: column;
 		gap: 2rem;
 		max-width: min(100%, 600px);
+	}
+
+	hr {
+		width: 100%;
+		margin: 0;
+		border: 1px solid var(--border);
 	}
 
 	.container {

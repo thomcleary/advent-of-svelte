@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from '../$types';
+	import ChildInputRange from './ChildInputRange.svelte';
 
 	export let onAddChild: ((child: Omit<PageData['children'][number], 'id'>) => void) | undefined =
 		undefined;
@@ -13,13 +14,13 @@
 		<input
 			type="text"
 			maxlength="64"
-			placeholder="New name..."
+			placeholder="Name..."
 			required
 			bind:value={newChild.name}
 			bind:this={newChildNameInput}
 		/>
 		<div class="tally">
-			<input style:flex={'1'} type="range" min="-100" max="100" bind:value={newChild.tally} />
+			<ChildInputRange bind:value={newChild.tally} />
 			<span style:width="4ch" style="align-self: center;">{newChild.tally}</span>
 		</div>
 	</div>
@@ -52,14 +53,14 @@
 
 	.form {
 		display: flex;
-		gap: 1rem;
+		gap: 1.5rem;
 	}
 
 	.inputs {
 		display: flex;
 		flex-direction: column;
 		flex: 1;
-		gap: 0.5rem;
+		gap: 1rem;
 	}
 
 	.tally {
