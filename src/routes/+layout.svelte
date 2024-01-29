@@ -7,42 +7,44 @@
 	let showInfo = false;
 </script>
 
-<header>
-	<nav>
-		<div class="breadcrumbs">
-			<a class="home" href="/"><AdventOfSvelteImg /></a>
-			{#if $page.data.year}
-				<span>/</span>
-				{#if $page.data.day}
-					<a href="../">{$page.data.year}</a>
+<div style="display: flex; flex-direction: column; min-height: 100dvh;">
+	<header>
+		<nav>
+			<div class="breadcrumbs">
+				<a class="home" href="/"><AdventOfSvelteImg /></a>
+				{#if $page.data.year}
 					<span>/</span>
-					<span>Day {$page.data.day}</span>
+					{#if $page.data.day}
+						<a href="../">{$page.data.year}</a>
+						<span>/</span>
+						<span>Day {$page.data.day}</span>
+					{:else}
+						<span>{$page.data.year}</span>
+					{/if}
 				{:else}
-					<span>{$page.data.year}</span>
+					<span>Advent of Svelte</span>
 				{/if}
-			{:else}
-				<span>Advent of Svelte</span>
-			{/if}
-		</div>
-		<button
-			style:visibility={$page.data.title || $page.data.description?.length > 0 ? '' : 'hidden'}
-			on:click={() => (showInfo = !showInfo)}>i</button
-		>
-	</nav>
-	{#if ($page.data.title || $page.data.description?.length > 0) && showInfo}
-		<div transition:slide={{ duration: 250 }}>
-			<h1>{$page.data.title}</h1>
-			{#each $page.data.description as paragraph}
-				<p>
-					{paragraph}
-				</p>
-			{/each}
-		</div>
-	{/if}
-</header>
-<main>
-	<slot />
-</main>
+			</div>
+			<button
+				style:visibility={$page.data.title || $page.data.description?.length > 0 ? '' : 'hidden'}
+				on:click={() => (showInfo = !showInfo)}>i</button
+			>
+		</nav>
+		{#if ($page.data.title || $page.data.description?.length > 0) && showInfo}
+			<div transition:slide={{ duration: 250 }}>
+				<h1>{$page.data.title}</h1>
+				{#each $page.data.description as paragraph}
+					<p>
+						{paragraph}
+					</p>
+				{/each}
+			</div>
+		{/if}
+	</header>
+	<main>
+		<slot />
+	</main>
+</div>
 
 <style>
 	header {
@@ -51,6 +53,8 @@
 	}
 
 	main {
+		display: flex;
+		flex-direction: column;
 		flex: 1;
 		padding: 2rem;
 	}
